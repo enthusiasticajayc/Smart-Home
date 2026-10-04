@@ -1,0 +1,386 @@
+/* Glassmorphic Smart Home UI — CSS Design System */
+:root {
+  --bg-deep: #070913;
+  --bg-surface: #0e1222;
+  --font-main: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-display: 'Outfit', sans-serif;
+
+  /* Accent presets default (Cyan Cyber) */
+  --accent-primary: #06b6d4;
+  --accent-secondary: #3b82f6;
+  --accent-glow: rgba(6, 182, 212, 0.4);
+  --accent-rgb: 6, 182, 212;
+
+  /* Glass tokens */
+  --glass-bg: rgba(18, 24, 43, 0.55);
+  --glass-bg-hover: rgba(26, 36, 62, 0.7);
+  --glass-border: rgba(255, 255, 255, 0.12);
+  --glass-border-glow: rgba(6, 182, 212, 0.4);
+  --glass-shadow: 0 12px 40px 0 rgba(0, 0, 0, 0.45);
+  --glass-blur: blur(16px) saturate(190%);
+
+  --text-main: #f1f5f9;
+  --text-muted: #94a3b8;
+  --text-dim: #64748b;
+  --success: #10b981;
+  --warning: #f59e0b;
+  --danger: #ef4444;
+}
+
+/* Theme accent variations */
+[data-theme="cyan"] {
+  --accent-primary: #06b6d4;
+  --accent-secondary: #3b82f6;
+  --accent-glow: rgba(6, 182, 212, 0.45);
+  --accent-rgb: 6, 182, 212;
+}
+
+[data-theme="amber"] {
+  --accent-primary: #f59e0b;
+  --accent-secondary: #ef4444;
+  --accent-glow: rgba(245, 158, 11, 0.45);
+  --accent-rgb: 245, 158, 11;
+}
+
+[data-theme="emerald"] {
+  --accent-primary: #10b981;
+  --accent-secondary: #06b6d4;
+  --accent-glow: rgba(16, 185, 129, 0.45);
+  --accent-rgb: 16, 185, 129;
+}
+
+[data-theme="purple"] {
+  --accent-primary: #a855f7;
+  --accent-secondary: #ec4899;
+  --accent-glow: rgba(168, 85, 247, 0.45);
+  --accent-rgb: 168, 85, 247;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  font-family: var(--font-main);
+  background-color: var(--bg-deep);
+  color: var(--text-main);
+  overflow-x: hidden;
+}
+
+body {
+  min-height: 100vh;
+  position: relative;
+  background: radial-gradient(circle at 50% 0%, #171d38 0%, var(--bg-deep) 70%);
+}
+
+/* Ambient Floating Glowing Glass Orbs Background */
+.ambient-bg {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  pointer-events: none;
+  z-index: 0;
+  overflow: hidden;
+}
+
+.glow-orb {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(100px);
+  opacity: 0.35;
+  animation: floatOrb 20s infinite alternate ease-in-out;
+}
+
+.glow-orb-1 {
+  width: 500px;
+  height: 500px;
+  background: var(--accent-primary);
+  top: -100px;
+  left: -100px;
+}
+
+.glow-orb-2 {
+  width: 600px;
+  height: 600px;
+  background: var(--accent-secondary);
+  top: 40%;
+  right: -150px;
+  animation-duration: 25s;
+  animation-delay: -5s;
+}
+
+.glow-orb-3 {
+  width: 450px;
+  height: 450px;
+  background: rgba(168, 85, 247, 0.4);
+  bottom: 10%;
+  left: 20%;
+  animation-duration: 18s;
+  animation-delay: -10s;
+}
+
+@keyframes floatOrb {
+  0% { transform: translate(0, 0) scale(1); }
+  50% { transform: translate(40px, 60px) scale(1.15); }
+  100% { transform: translate(-30px, -40px) scale(0.95); }
+}
+
+/* Base Glassmorphism Card Utility Classes */
+.glass-card {
+  background: var(--glass-bg);
+  backdrop-filter: var(--glass-blur);
+  -webkit-backdrop-filter: var(--glass-blur);
+  border: 1px solid var(--glass-border);
+  box-shadow: var(--glass-shadow), inset 0 1px 1px rgba(255, 255, 255, 0.15);
+  border-radius: 20px;
+  transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+  position: relative;
+  overflow: hidden;
+}
+
+.glass-card:hover {
+  background: var(--glass-bg-hover);
+  border-color: rgba(var(--accent-rgb), 0.4);
+  box-shadow: 0 16px 48px rgba(0, 0, 0, 0.5), 0 0 24px rgba(var(--accent-rgb), 0.15), inset 0 1px 1px rgba(255, 255, 255, 0.25);
+  transform: translateY(-4px);
+}
+
+.glass-card-interactive {
+  cursor: pointer;
+}
+
+.glass-panel {
+  background: rgba(15, 20, 36, 0.7);
+  backdrop-filter: var(--glass-blur);
+  -webkit-backdrop-filter: var(--glass-blur);
+  border: 1px solid var(--glass-border);
+  border-radius: 24px;
+  box-shadow: var(--glass-shadow);
+}
+
+.glass-pill {
+  background: rgba(255, 255, 255, 0.06);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 50px;
+  padding: 8px 18px;
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: var(--text-muted);
+  cursor: pointer;
+  transition: all 0.25s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.glass-pill:hover, .glass-pill.active {
+  background: rgba(var(--accent-rgb), 0.2);
+  border-color: var(--accent-primary);
+  color: #fff;
+  box-shadow: 0 0 15px rgba(var(--accent-rgb), 0.3);
+}
+
+/* Glass Buttons */
+.btn-glass-primary {
+  background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  color: #fff;
+  font-weight: 600;
+  padding: 12px 26px;
+  border-radius: 14px;
+  cursor: pointer;
+  box-shadow: 0 8px 24px var(--accent-glow);
+  transition: all 0.3s ease;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  text-decoration: none;
+  font-size: 0.95rem;
+}
+
+.btn-glass-primary:hover {
+  transform: translateY(-2px) scale(1.02);
+  box-shadow: 0 12px 32px var(--accent-glow), 0 0 20px rgba(255, 255, 255, 0.4);
+}
+
+.btn-glass-secondary {
+  background: rgba(255, 255, 255, 0.06);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  color: var(--text-main);
+  font-weight: 600;
+  padding: 12px 26px;
+  border-radius: 14px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  text-decoration: none;
+  font-size: 0.95rem;
+}
+
+.btn-glass-secondary:hover {
+  background: rgba(255, 255, 255, 0.12);
+  border-color: var(--accent-primary);
+  color: #fff;
+  box-shadow: 0 0 20px rgba(var(--accent-rgb), 0.25);
+  transform: translateY(-2px);
+}
+
+/* Glass Inputs */
+.glass-input {
+  background: rgba(15, 21, 38, 0.6);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 12px;
+  padding: 12px 18px;
+  color: #fff;
+  font-family: var(--font-main);
+  font-size: 0.95rem;
+  width: 100%;
+  outline: none;
+  transition: all 0.25s ease;
+  backdrop-filter: blur(10px);
+}
+
+.glass-input:focus {
+  border-color: var(--accent-primary);
+  box-shadow: 0 0 15px rgba(var(--accent-rgb), 0.3);
+  background: rgba(20, 28, 50, 0.8);
+}
+
+/* Custom Glass Switch Toggle */
+.glass-switch {
+  position: relative;
+  display: inline-block;
+  width: 52px;
+  height: 28px;
+}
+
+.glass-switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background-color: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  transition: .3s cubic-bezier(0.16, 1, 0.3, 1);
+  border-radius: 34px;
+  backdrop-filter: blur(8px);
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 20px;
+  width: 20px;
+  left: 3px;
+  bottom: 3px;
+  background-color: #fff;
+  transition: .3s cubic-bezier(0.16, 1, 0.3, 1);
+  border-radius: 50%;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
+}
+
+input:checked + .slider {
+  background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
+  border-color: var(--accent-primary);
+  box-shadow: 0 0 12px var(--accent-glow);
+}
+
+input:checked + .slider:before {
+  transform: translateX(24px);
+}
+
+/* Range Slider Styling */
+input[type="range"].glass-range {
+  -webkit-appearance: none;
+  width: 100%;
+  height: 8px;
+  border-radius: 5px;
+  background: rgba(255, 255, 255, 0.1);
+  outline: none;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+input[type="range"].glass-range::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
+  cursor: pointer;
+  box-shadow: 0 0 12px var(--accent-glow);
+  border: 2px solid #fff;
+}
+
+/* Typography styles */
+.gradient-title {
+  font-family: var(--font-display);
+  background: linear-gradient(135deg, #ffffff 0%, #cbd5e1 50%, var(--accent-primary) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.section-tag {
+  color: var(--accent-primary);
+  font-family: var(--font-display);
+  font-size: 0.85rem;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  font-weight: 700;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(var(--accent-rgb), 0.1);
+  border: 1px solid rgba(var(--accent-rgb), 0.3);
+  padding: 6px 14px;
+  border-radius: 30px;
+  margin-bottom: 12px;
+}
+
+/* Scrollbar customization */
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: var(--bg-deep);
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.15);
+  border-radius: 10px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--accent-primary);
+}
+
+/* Responsive Container */
+.container {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+/* Animations */
+@keyframes pulseGlow {
+  0%, 100% { box-shadow: 0 0 15px rgba(var(--accent-rgb), 0.3); }
+  50% { box-shadow: 0 0 30px rgba(var(--accent-rgb), 0.7); }
+}
+
+.pulse-active {
+  animation: pulseGlow 2.5s infinite;
+}
